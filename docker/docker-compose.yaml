@@ -1,0 +1,15 @@
+version: '3.3'
+services:
+  dovecot-director-controller:
+    image: "ghcr.io/sers-dev/dovecot-director-controller:latest"
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+    volumes:
+      - ~/.kube/.config:/root/.kube/config
+    environment:
+      - DOVECOT_NAMESPACE=mail
+      - DOVECOT_LABELS=app.kubernetes.io/instance=test,app.kubernetes.io/name=dovecot
+      - DOVECOT_DIRECTOR_LABELS=app.kubernetes.io/instance=test,app.kubernetes.io/name=dovecot-director
+      - DOVECOT_DIRECTOR_CONTAINER_NAME=dovecot-director
+      - SYNC_FREQUENCY_DURATION=80
